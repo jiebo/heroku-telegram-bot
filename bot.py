@@ -7,7 +7,7 @@ import telebot
 
 # Example of your code beginning
 #           Config vars
-#token = os.environ['TELEGRAM_TOKEN']
+token = os.environ['TELEGRAM_TOKEN']
 #some_api_token = os.environ['SOME_API_TOKEN']
 #             ...
 
@@ -16,7 +16,7 @@ import telebot
 # some_api = some_api_lib.connect(some_api_token)
 #              ...
 
-bot = telebot.TeleBot("434900295:AAGxz2ujTfycUKYPJUspj87wtWaAToiSTkU")
+bot = telebot.TeleBot(token)
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
