@@ -7,8 +7,8 @@ import telebot
 
 # Example of your code beginning
 #           Config vars
-token = os.environ['TELEGRAM_TOKEN']
-some_api_token = os.environ['SOME_API_TOKEN']
+#token = os.environ['TELEGRAM_TOKEN']
+#some_api_token = os.environ['SOME_API_TOKEN']
 #             ...
 
 #       Your bot code below
