@@ -15,21 +15,14 @@ some_api_token = os.environ['SOME_API_TOKEN']
 # bot = telebot.TeleBot(token)
 # some_api = some_api_lib.connect(some_api_token)
 #              ...
-def handle(msg):
-    chat_id = msg['chat']['id']
-    command = msg['text']
 
-    print 'Got command: %s' % command
 
-    if command == '/roll':
-        bot.sendMessage(chat_id, random.randint(1,6))
-    elif command == '/time':
-        bot.sendMessage(chat_id, str(datetime.datetime.now()))
+@bot.message_handler(commands=['start', 'help'])
+def send_welcome(message):
+	bot.reply_to(message, "Howdy, how are you doing?")
 
-bot = telebot.TeleBot('434900295:AAGxz2ujTfycUKYPJUspj87wtWaAToiSTkU')
+@bot.message_handler(func=lambda message: True)
+def echo_all(message):
+	bot.reply_to(message, message.text)
 
-MessageLoop(bot, handle).run_as_thread()
-print 'I am listening ...'
-
-while 1:
-  time.sleep(10)
+bot.polling()
