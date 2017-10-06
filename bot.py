@@ -26,7 +26,7 @@ def handle(msg):
     elif command == '/time':
         bot.sendMessage(chat_id, str(datetime.datetime.now()))
 
-bot = telepot.Bot('434900295:AAGxz2ujTfycUKYPJUspj87wtWaAToiSTkU')
+bot = telebot.TeleBot('434900295:AAGxz2ujTfycUKYPJUspj87wtWaAToiSTkU')
 
 MessageLoop(bot, handle).run_as_thread()
 print 'I am listening ...'
