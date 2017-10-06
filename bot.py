@@ -16,6 +16,7 @@ some_api_token = os.environ['SOME_API_TOKEN']
 # some_api = some_api_lib.connect(some_api_token)
 #              ...
 
+bot = telebot.TeleBot("434900295:AAGxz2ujTfycUKYPJUspj87wtWaAToiSTkU")
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
