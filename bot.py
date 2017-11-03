@@ -20,8 +20,11 @@ token = os.environ['TELEGRAM_TOKEN']
 #              ...
 
 bot = telebot.TeleBot(token)
-@bot.message_handler(commands='upload')
-def upload_picture(message):
+updates = bot.get_updates()
+print(updates)
+
+@bot.message_handler(commands=['upload'])
+def upload_picture():
   upload()
 
 @bot.message_handler(commands=['start', 'help'])
@@ -31,7 +34,6 @@ def send_welcome(message):
 @bot.message_handler(func=lambda message: True)
 def echo_all(message):
   bot.send_message(message.chat.id, 'hellohelloooo')
-  bot.reply_to(message, message.text)
-  
+  bot.reply_to(message, message.text)  
 
 bot.polling()
