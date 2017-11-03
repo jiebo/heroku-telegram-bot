@@ -2,6 +2,7 @@
 import redis
 import os
 import telebot
+
 from cloudinary_manager import upload
 # import some_api_lib
 # import ...
@@ -22,7 +23,7 @@ updates = bot.get_updates()
 print(updates)
 
 @bot.message_handler(commands=['upload'])
-def upload_picture(message):
+def upload_picture():
   upload()
 
 @bot.message_handler(commands=['start', 'help'])
