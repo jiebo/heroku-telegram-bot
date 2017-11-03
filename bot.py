@@ -2,14 +2,11 @@
 import redis
 import os
 import telebot
-<<<<<<< HEAD
 import cloudinary
 import cloudinary.uploader
 import cloudinary.utils
 import cloudinary.api
-=======
 from telebot import types
->>>>>>> 283aab1c1548ebd815cf8258a8cbbbbf1b3b3524
 
 # import some_api_lib
 # import ...
