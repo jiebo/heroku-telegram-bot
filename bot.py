@@ -38,6 +38,10 @@ def upload():
 def upload_picture(message):
   upload()
 
+@bot.message_handler(content_types=['photo'])
+def user_uploads_photo(message):
+  print("received a new photo")
+
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
   bot.reply_to(message, "Testing 123")
