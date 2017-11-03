@@ -39,11 +39,16 @@ photo_array = [ 'https://avatars3.githubusercontent.com/u/10268386?s=400&u=c2297
 
 @bot.message_handler(commands=['upload'])
 def upload_picture(message):
+  print(message)
   upload(message)
 
-@bot.message_handler(content_types=['document', 'image'])
+@bot.message_handler(content_types=['document'])
+def user_uploads_document(message):
+  bot.reply_to(message, "Please use the attach image button instead of attaching a document")
+
+@bot.message_handler(content_types=['photo'])
 def user_uploads_photo(message):
-  print(message)
+  upload(message)
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
