@@ -18,7 +18,7 @@ token = os.environ['TELEGRAM_TOKEN']
 #              ...
 
 bot = telebot.TeleBot(token)
-@bot.message_handler(commands=['upload'])
+@bot.message_handler(commands='upload')
 def upload_picture(message):
   upload()
 
