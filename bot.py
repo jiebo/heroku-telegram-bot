@@ -28,6 +28,8 @@ def send_welcome(message):
 
 @bot.message_handler(func=lambda message: True)
 def echo_all(message):
+  bot.send_message(chatid, 'hellohelloooo')
 	bot.reply_to(message, message.text)
+  
 
 bot.polling()
