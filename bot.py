@@ -56,7 +56,7 @@ def send_welcome(message):
 
 @bot.message_handler(func=lambda message: True)
 def echo_all(message):
-  for idx, url in enumerate(photo_array):
-    bot.send_message(message.chat.id, '<a href=' + url + '>0</a>', parse_mode='HTML')
+  for url in photo_array:
+    bot.send_message(message.chat.id, url)
 
 bot.polling()
