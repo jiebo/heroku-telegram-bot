@@ -2,10 +2,14 @@
 import redis
 import os
 import telebot
+<<<<<<< HEAD
 import cloudinary
 import cloudinary.uploader
 import cloudinary.utils
 import cloudinary.api
+=======
+from telebot import types
+>>>>>>> 283aab1c1548ebd815cf8258a8cbbbbf1b3b3524
 
 # import some_api_lib
 # import ...
@@ -43,6 +47,7 @@ def send_welcome(message):
 
 @bot.message_handler(func=lambda message: True)
 def echo_all(message):
-  bot.reply_to(message, message.text)
+  bot.send_message(message.chat.id, 'hellohelloooo')
+  bot.reply_to(message, message.text)  
 
 bot.polling()
