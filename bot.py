@@ -2,8 +2,11 @@
 import redis
 import os
 import telebot
+import cloudinary
+import cloudinary.uploader
+import cloudinary.utils
+import cloudinary.api
 
-from cloudinary_manager import upload
 # import some_api_lib
 # import ...
 
@@ -21,6 +24,14 @@ token = os.environ['TELEGRAM_TOKEN']
 bot = telebot.TeleBot(token)
 updates = bot.get_updates()
 print(updates)
+cloudinary.config(
+  cloud_name = "eu-sep", 
+  api_key = "511481921314569", 
+  api_secret = "ERbXpHjdMlU91qcBEslQCY5ReyE" 
+)
+
+def upload():
+  cloudinary.uploader.upload("https://vignette.wikia.nocookie.net/youtubepoop/images/f/f7/5Pikachu.png/revision/latest?cb=20141108062013")
 
 @bot.message_handler(commands=['upload'])
 def upload_picture():
