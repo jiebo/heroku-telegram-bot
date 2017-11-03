@@ -38,7 +38,7 @@ def upload():
 def upload_picture(message):
   upload()
 
-@bot.message_handler(content_types=['document', 'audio'])
+@bot.message_handler(content_types=['document', 'image'])
 def user_uploads_photo(message):
   print("received a new photo")
 
