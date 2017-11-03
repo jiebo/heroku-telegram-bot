@@ -35,7 +35,7 @@ def upload():
   cloudinary.uploader.upload("https://vignette.wikia.nocookie.net/youtubepoop/images/f/f7/5Pikachu.png/revision/latest?cb=20141108062013")
 
 @bot.message_handler(commands=['upload'])
-def upload_picture():
+def upload_picture(message):
   upload()
 
 @bot.message_handler(commands=['start', 'help'])
