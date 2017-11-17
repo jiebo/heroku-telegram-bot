@@ -23,7 +23,7 @@ def upload(photo, count):
     cloudinary.uploader.upload(
         "https://api.telegram.org/file/bot" + TOKEN + "/" +
         BOT.get_file(photo.photo[-1].file_id).file_path,
-        : public_id=> str(count))
+        public_id=str(count))
 
 
 PHOTO_ARRAY = [
