@@ -33,7 +33,7 @@ cloudinary.config(
 
 def upload(photo):
   cloudinary.uploader.upload(
-    "https://api.telegram.org/file/bot" + token + "/"
+    "https://api.telegram.org/file/bot" + token + "/" +
     bot.get_file(photo.photo[-1].file_id).file_path)
 
 photo_array = [ 'https://avatars3.githubusercontent.com/u/10268386?s=400&u=c22979fe17a17df6aa32d3cf7326e8370160dd47&v=4', 'https://avatars1.githubusercontent.com/u/4401928?s=400&v=4' ]
