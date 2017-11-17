@@ -53,7 +53,7 @@ def send_welcome(message):
 
 
 @BOT.message_handler(commands=['start_test'])
-def start_test():
+def start_test(message):
     """Retrieve images from Cloudinary and save to photo array"""
     print("Inside start_test")
     for url in PHOTO_ARRAY:
