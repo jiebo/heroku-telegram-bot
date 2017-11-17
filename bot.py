@@ -10,7 +10,7 @@ import cloudinary.api
 
 TOKEN = os.environ['TELEGRAM_TOKEN']
 BOT = telebot.TeleBot(TOKEN)
-COUNT = 0
+COUNT = int(0)
 cloudinary.config(
     cloud_name="eu-sep",
     api_key="511481921314569",
@@ -21,8 +21,7 @@ cloudinary.config(
 def upload(photo, count):
     """Uploads user-uploaded image onto Cloudinary"""
     cloudinary.uploader.upload(
-        "https://api.telegram.org/file/bot" + TOKEN + "/" +
-        BOT.get_file(photo.photo[-1].file_id).file_path,
+        "https://api.telegram.org/file/bot" + TOKEN + "/" + name,
         public_id=str(count))
 
 
@@ -35,8 +34,8 @@ PHOTO_ARRAY = [
 @BOT.message_handler(content_types=['photo'])
 def user_uploads_photo(photo):
     """When user uploads an image"""
-    COUNT += 1
-    upload(photo, COUNT)
+    var name = BOT.get_file(photo.photo[-1].file_id).file_path
+    upload(photo, name)
 
 
 @BOT.message_handler(content_types=['document'])
