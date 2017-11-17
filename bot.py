@@ -8,20 +8,7 @@ import cloudinary.uploader
 import cloudinary.utils
 import cloudinary.api
 
-# import some_api_lib
-# import ...
-
-# Example of your code beginning
-#           Config vars
 TOKEN = os.environ['TELEGRAM_TOKEN']
-# some_api_token = os.environ['SOME_API_TOKEN']
-#             ...
-
-#       Your bot code below
-# bot = telebot.TeleBot(token)
-# some_api = some_api_lib.connect(some_api_token)
-#              ...
-
 BOT = telebot.TeleBot(TOKEN)
 cloudinary.config(
     cloud_name="eu-sep",
