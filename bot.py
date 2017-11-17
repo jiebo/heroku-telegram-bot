@@ -30,7 +30,7 @@ PHOTO_ARRAY = [
 ]
 
 
-@BOT.message_handler(content_type='photo')
+@BOT.message_handler(content_types=['photo'])
 def user_uploads_photo(photo):
     """When user uploads an image"""
     upload(photo)
