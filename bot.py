@@ -48,7 +48,7 @@ def user_uploads_document(message):
 
 @bot.message_handler(content_types=['photo'])
 def user_uploads_photo(photo):
-  print(photo)
+  print(photo.photo)
   upload(photo)
 
 @bot.message_handler(commands=['start', 'help'])
