@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
-import redis
 import os
 import telebot
 import cloudinary
 import cloudinary.uploader
 import cloudinary.utils
 import cloudinary.api
-from telebot import types
+import time
 
 # import some_api_lib
 # import ...
@@ -14,7 +13,7 @@ from telebot import types
 # Example of your code beginning
 #           Config vars
 token = os.environ['TELEGRAM_TOKEN']
-#some_api_token = os.environ['SOME_API_TOKEN']
+# some_api_token = os.environ['SOME_API_TOKEN']
 #             ...
 
 #       Your bot code below
@@ -22,45 +21,64 @@ token = os.environ['TELEGRAM_TOKEN']
 # some_api = some_api_lib.connect(some_api_token)
 #              ...
 
-bot = telebot.TeleBot(token)
-updates = bot.get_updates()
-print(updates)
+BOT = telebot.TeleBot(token)
+updates = BOT.get_updates()
+startDate
 cloudinary.config(
-  cloud_name = "eu-sep", 
-  api_key = "511481921314569", 
-  api_secret = "ERbXpHjdMlU91qcBEslQCY5ReyE" 
+    cloud_name="eu-sep",
+    api_key="511481921314569",
+    api_secret="ERbXpHjdMlU91qcBEslQCY5ReyE"
 )
 
+
 def upload(photo):
-  cloudinary.uploader.upload(
-    "https://api.telegram.org/file/bot" + token + "/" +
-    bot.get_file(photo.photo[-1].file_id).file_path)
-
-photo_array = [ 'https://avatars3.githubusercontent.com/u/10268386?s=400&u=c22979fe17a17df6aa32d3cf7326e8370160dd47&v=4', 'https://avatars1.githubusercontent.com/u/4401928?s=400&v=4' ]
+    cloudinary.uploader.upload(
+        "https://api.telegram.org/file/bot" + token + "/" +
+        BOT.get_file(photo.photo[-1].file_id).file_path)
 
 
-@bot.message_handler(commands=['upload'])
+photo_array = ['https://avatars3.githubusercontent.com/u/10268386?s=400&u=c22979fe17a17df6aa32d3cf7326e8370160dd47&v=4',
+               'https://avatars1.githubusercontent.com/u/4401928?s=400&v=4']
+
+photo_array = ['https://avatars3.githubusercontent.com/u/10268386?s=400&u=c22979fe17a17df6aa32d3cf7326e8370160dd47&v=4',
+               'https://avatars1.githubusercontent.com/u/4401928?s=400&v=4']
+
+    print(message)
+    upload(message)
+
+
 def upload_picture(message):
-  print(message)
-  upload(message)
+    print(message)
+    upload(message)
+    BOT.reply_to(
+        message, "Please use the attach image button instead of attaching a document")
 
-@bot.message_handler(content_types=['document'])
+
+@BOT.message_handler(content_types=['document'])
 def user_uploads_document(message):
-  bot.reply_to(message, "Please use the attach image button instead of attaching a document")
+    upload(photo)
 
-@bot.message_handler(content_types=['photo'])
+        message, "Please use the attach image button instead of attaching a document")
+
+
+    BOT.reply_to(message, "Testing 123")
+
 def user_uploads_photo(photo):
-  print(photo.photo[-1].file_id)
-  print(bot.get_file(photo.photo[-1].file_id).file_path)
-  upload(photo)
+    upload(photo)
 
-@bot.message_handler(commands=['start', 'help'])
+    for url in photo_array:
+        BOT.send_message(
+            message.chat.id, "[Options](" + url + ")", parse_mode = "Markdown")
+
 def send_welcome(message):
-  bot.reply_to(message, "Testing 123")
+    BOT.reply_to(message, "Testing 123")
 
-@bot.message_handler(func=lambda message: True)
+
+@BOT.message_handler(func = lambda message: True)
 def echo_all(message):
-  for url in photo_array:
-    bot.send_message(message.chat.id, "[Options](" + url + ")", parse_mode="Markdown")
+    for url in photo_array:
+        BOT.send_message(
+            message.chat.id, "[Options](" + url + ")", parse_mode = "Markdown")
 
-bot.polling()
+
+BOT.polling()
