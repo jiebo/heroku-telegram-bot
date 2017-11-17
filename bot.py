@@ -35,7 +35,8 @@ PHOTO_ARRAY = [
 @BOT.message_handler(content_types=['photo'])
 def user_uploads_photo(photo):
     """When user uploads an image"""
-    upload(photo, COUNT += 1)
+    COUNT += 1
+    upload(photo, COUNT)
 
 
 @BOT.message_handler(content_types=['document'])
