@@ -49,7 +49,7 @@ def user_uploads_document(message):
 @bot.message_handler(content_types=['photo'])
 def user_uploads_photo(photo):
   print(photo.photo[-1].file_id)
-  print(bot.get_file(photo.photo[-1].file_id).file_size)
+  print(bot.get_file(photo.photo[-1].file_id).file_path)
   upload(photo)
 
 @bot.message_handler(commands=['start', 'help'])
