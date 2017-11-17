@@ -47,8 +47,9 @@ def user_uploads_document(message):
   bot.reply_to(message, "Please use the attach image button instead of attaching a document")
 
 @bot.message_handler(content_types=['photo'])
-def user_uploads_photo(message):
-  upload(message)
+def user_uploads_photo(photo):
+  print(photo)
+  upload(photo)
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
