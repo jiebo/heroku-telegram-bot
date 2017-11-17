@@ -18,11 +18,11 @@ cloudinary.config(
 )
 
 
-def upload(photo, count):
+def upload(photo, name):
     """Uploads user-uploaded image onto Cloudinary"""
     cloudinary.uploader.upload(
         "https://api.telegram.org/file/bot" + TOKEN + "/" + name,
-        public_id=str(count))
+        public_id=name)
 
 
 PHOTO_ARRAY = [
