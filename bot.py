@@ -40,7 +40,7 @@ def user_uploads_document(message):
 @BOT.message_handler(commands=['start', 'help'])
 def send_welcome(message):
     """Default command"""
-    BOT.reply_to(message, "Testing 123")
+    BOT.reply_to(message, "Testing 12345")
 
 
 @BOT.message_handler(func=lambda message: True)
