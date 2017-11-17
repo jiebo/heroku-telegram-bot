@@ -36,6 +36,7 @@ def user_uploads_photo(photo):
     """When user uploads an image"""
     name = BOT.get_file(photo.photo[-1].file_id).file_path
     upload(photo, name)
+    PHOTO_ARRAY.append(name)
 
 
 @BOT.message_handler(content_types=['document'])
@@ -54,6 +55,9 @@ def send_welcome(message):
 @BOT.message_handler(commands=['start_test'])
 def start_test():
     """Retrieve images from Cloudinary and save to photo array"""
+    print("Inside start_test")
+    for url in PHOTO_ARRAY:
+        print(url)
 
 
 @BOT.message_handler(func=lambda message: True)
