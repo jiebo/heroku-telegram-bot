@@ -2,11 +2,12 @@
 """Telegram bot"""
 import os
 import time
-import telebot
+
 import cloudinary
+import cloudinary.api
 import cloudinary.uploader
 import cloudinary.utils
-import cloudinary.api
+import telebot
 
 TOKEN = os.environ['TELEGRAM_TOKEN']
 BOT = telebot.TeleBot(TOKEN)
@@ -34,7 +35,7 @@ PHOTO_ARRAY = [
 @BOT.message_handler(content_types=['photo'])
 def user_uploads_photo(photo):
     """When user uploads an image"""
-    name = BOT.get_file(photo.photo[-1].file_id).file_path
+    name = BOT.get_file(photo.photo[-1].file_id).file_id
     upload(photo, name)
     PHOTO_ARRAY.append(name)
 
@@ -55,9 +56,11 @@ def send_welcome(message):
 @BOT.message_handler(commands=['start_test'])
 def start_test(message):
     """Retrieve images from Cloudinary and save to photo array"""
-    print("Inside start_test")
     for url in PHOTO_ARRAY:
-        print(url)
+        img = cloudinary.CloudinaryImage(url).image()
+        print(img)
+        BOT.send_message(
+            message.chat.id, "[Options](" + url + ")", parse_mode="Markdown")
 
 
 @BOT.message_handler(func=lambda message: True)
