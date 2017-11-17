@@ -30,6 +30,12 @@ PHOTO_ARRAY = [
 ]
 
 
+@BOT.message_handler(content_type='photo')
+def user_uploads_photo(photo):
+    """When user uploads an image"""
+    upload(photo)
+
+
 @BOT.message_handler(content_types=['document'])
 def user_uploads_document(message):
     """When user uses the wrong upload button"""
