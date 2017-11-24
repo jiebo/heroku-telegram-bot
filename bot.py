@@ -12,6 +12,7 @@ import telebot
 TOKEN = os.environ['TELEGRAM_TOKEN']
 BOT = telebot.TeleBot(TOKEN)
 TEST_ID = int(0)
+CHAT_ID = BOT.get_updates()[-1].message.chat_id
 cloudinary.config(
     cloud_name="eu-sep",
     api_key="511481921314569",
@@ -67,19 +68,12 @@ def send_welcome(message):
 def start_test(message):
     """Retrieve images from Cloudinary and save to photo array"""
     for idx, url in enumerate(PHOTO_ARRAY):
-        img = cloudinary.CloudinaryImage(url, width=150).image()
+        img = cloudinary.CloudinaryImage(url).image()
         print(img)
         print(url)
+        BOT.send_photo(CHAT_ID, img, "Option " + str(idx + 1))
         BOT.send_message(
             message.chat.id, "[Option " + str(idx + 1) + "](" + url + ")", parse_mode="Markdown")
-
-
-# @BOT.message_handler(func=lambda message: True)
-# def echo_all(message):
-#     """Method returns images in PHOTO_ARRAY as Options"""
-#     for idx, url in enumerate(PHOTO_ARRAY):
-#         BOT.send_message(
-#             message.chat.id, "[Option " + str(idx + 1) + "](" + url + ")", parse_mode="Markdown")
 
 
 BOT.polling()
