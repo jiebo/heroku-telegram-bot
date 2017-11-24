@@ -23,7 +23,7 @@ def upload(name):
     """Uploads user-uploaded image onto Cloudinary"""
     cloudinary.uploader.upload(
         "https://api.telegram.org/file/bot" + TOKEN + "/" + name,
-        public_id="" + name,
+        public_id="test_id" + str(TEST_ID) + "/" + name,
         use_filename=True,
         unique_filename=True)
 
