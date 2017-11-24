@@ -68,9 +68,10 @@ def start_test(message):
     """Retrieve images from Cloudinary and save to photo array"""
     for idx, url in enumerate(PHOTO_ARRAY):
         img = cloudinary.CloudinaryImage(url).image()
+        photo = open(url, 'rb')
         print(img)
         print(url)
-        BOT.send_photo(message.chat.id, img)
+        BOT.send_photo(message.chat.id, photo)
         BOT.send_message(
             message.chat.id, "[Option " + str(idx + 1) + "](" + url + ")", parse_mode="Markdown")
 
