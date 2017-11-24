@@ -70,9 +70,9 @@ def start_test(message):
         img = cloudinary.CloudinaryImage(url).image()
         print(img)
         print(url)
-        BOT.send_photo(message.chat_id, img, "Option " + str(idx + 1))
+        BOT.send_photo(message.chat.id, img, "Option " + str(idx + 1))
         BOT.send_message(
-            message.chat_id, "[Option " + str(idx + 1) + "](" + url + ")", parse_mode="Markdown")
+            message.chat.id, "[Option " + str(idx + 1) + "](" + url + ")", parse_mode="Markdown")
 
 
 BOT.polling()
