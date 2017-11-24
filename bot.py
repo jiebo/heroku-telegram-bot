@@ -67,16 +67,14 @@ def send_welcome(message):
 @BOT.message_handler(commands=['start_test'])
 def start_test(message):
     """Retrieve images from Cloudinary and save to photo array"""
-    markup = telebot.types.ReplyKeyboardMarkup()
-    option_1_btn = telebot.types.KeyboardButton('Option 1')
-    option_2_btn = telebot.types.KeyboardButton('Option 2')
-    option_3_btn = telebot.types.KeyboardButton('Option 3')
-    markup.add(option_1_btn, option_2_btn, option_3_btn)
+    markup = telebot.types.ReplyKeyboardMarkup(row_width=1)
 
     for idx, url in enumerate(PHOTO_ARRAY):
         downloadImageFile(url)
         photo = open('temp.jpg', 'rb')
         BOT.send_photo(message.chat.id, photo, '/Option' + str(idx + 1))
+        option_btn = telebot.types.KeyboardButton("Option " + str(idx + 1))
+        markup.add(option_btn)
 
     BOT.send_message(message.chat.id, "Which is the best?", reply_markup=markup)
 
