@@ -67,7 +67,7 @@ def send_welcome(message):
 @BOT.message_handler(commands=['start_test'])
 def start_test(message):
     """Retrieve images from Cloudinary and save to photo array"""
-    markup = telebot.types.ReplyKeyboardMarkup
+    markup = telebot.types.ReplyKeyboardMarkup()
     option_1_btn = telebot.types.KeyboardButton('Option 1')
     option_2_btn = telebot.types.KeyboardButton('Option 2')
     option_3_btn = telebot.types.KeyboardButton('Option 3')
