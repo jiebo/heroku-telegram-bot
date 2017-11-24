@@ -68,7 +68,7 @@ def echo_all(message):
     """Method returns images in PHOTO_ARRAY as Options"""
     for idx, url in enumerate(PHOTO_ARRAY):
         BOT.send_message(
-            message.chat.id, "[Options " + idx + "](" + url + ")", parse_mode="Markdown")
+            message.chat.id, "[Options " + str(idx) + "](" + url + ")", parse_mode="Markdown")
 
 
 BOT.polling()
