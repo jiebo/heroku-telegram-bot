@@ -11,7 +11,6 @@ import telebot
 
 TOKEN = os.environ['TELEGRAM_TOKEN']
 BOT = telebot.TeleBot(TOKEN)
-COUNT = int(0)
 TEST_ID = int(0)
 cloudinary.config(
     cloud_name="eu-sep",
@@ -24,7 +23,7 @@ def upload(name):
     """Uploads user-uploaded image onto Cloudinary"""
     cloudinary.uploader.upload(
         "https://api.telegram.org/file/bot" + TOKEN + "/" + name,
-        public_id="" + name)
+        public_id="test_id" + str(TEST_ID) + name)
 
 
 PHOTO_ARRAY = [
@@ -56,8 +55,8 @@ def send_welcome(message):
 @BOT.message_handler(commands=['create_test'])
 def send_welcome(message):
     """Return the Test ID and create a directory in Cloudinary"""
-    TEST_ID += 1
-    BOT.reply_to(message, "Your Test ID is " + str(TEST_ID) +
+    test_id = TEST_ID + 1
+    BOT.reply_to(message, "Your Test ID is " + str(test_id) +
                  "\nProceed to upload your images, " +
                  "and call /start_test <ID> in your target chat group after you are done")
 
