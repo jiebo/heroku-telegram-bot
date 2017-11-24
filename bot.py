@@ -50,12 +50,13 @@ def user_uploads_document(message):
 @BOT.message_handler(commands=['start', 'help'])
 def send_welcome(message):
     """Default command"""
-    BOT.reply_to(message, "Testing 12345")
+    BOT.reply_to(message, "Use /create_test to start")
 
 
 @BOT.message_handler(commands=['create_test'])
 def send_welcome(message):
     """Return the Test ID and create a directory in Cloudinary"""
+    TEST_ID += 1
     BOT.reply_to(message, "Your Test ID is " + str(TEST_ID) +
                  "\nProceed to upload your images, " +
                  "and call /start_test <ID> in your target chat group after you are done")
