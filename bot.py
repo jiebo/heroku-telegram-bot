@@ -12,7 +12,6 @@ import telebot
 TOKEN = os.environ['TELEGRAM_TOKEN']
 BOT = telebot.TeleBot(TOKEN)
 TEST_ID = int(0)
-CHAT_ID = BOT.get_updates()[-1].message.chat_id
 cloudinary.config(
     cloud_name="eu-sep",
     api_key="511481921314569",
@@ -71,7 +70,7 @@ def start_test(message):
         img = cloudinary.CloudinaryImage(url).image()
         print(img)
         print(url)
-        BOT.send_photo(CHAT_ID, img, "Option " + str(idx + 1))
+        BOT.send_photo(BOT.get_updates()[-1].message.chat_id, img, "Option " + str(idx + 1))
         BOT.send_message(
             message.chat.id, "[Option " + str(idx + 1) + "](" + url + ")", parse_mode="Markdown")
 
