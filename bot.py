@@ -24,8 +24,8 @@ def upload(name):
     cloudinary.uploader.upload(
         "https://api.telegram.org/file/bot" + TOKEN + "/" + name,
         public_id="" + name,
-        use_filename="true",
-        unique_filename="true")
+        use_filename=True,
+        unique_filename=True)
 
 
 PHOTO_ARRAY = [
