@@ -34,7 +34,8 @@ PHOTO_ARRAY = [
 @BOT.message_handler(content_types=['photo'])
 def user_uploads_photo(photo):
     """When user uploads an image"""
-    name = BOT.get_file(photo.photo[-1].file_id).file_id
+    name = BOT.get_file(photo.photo[-1].file_id).file_path
+    name = name[:-4]
     upload(name)
     PHOTO_ARRAY.append(name)
 
