@@ -2,6 +2,7 @@
 """Telegram bot"""
 import os
 import time
+import urllib
 
 import cloudinary
 import cloudinary.api
@@ -68,12 +69,17 @@ def start_test(message):
     """Retrieve images from Cloudinary and save to photo array"""
     for idx, url in enumerate(PHOTO_ARRAY):
         img = cloudinary.CloudinaryImage(url).image()
-        photo = open(url, 'rb')
+        photo = open('temp.jpg', 'rb')
         print(img)
         print(url)
         BOT.send_photo(message.chat.id, photo)
         BOT.send_message(
             message.chat.id, "[Option " + str(idx + 1) + "](" + url + ")", parse_mode="Markdown")
 
+
+def downloadImageFile(url):
+    f = open('temp.jpg', 'wb')
+    f.write(urllib.request.urlopen(url).read())
+    f.close()
 
 BOT.polling()
