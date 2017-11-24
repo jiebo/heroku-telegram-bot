@@ -67,7 +67,7 @@ def send_welcome(message):
 def start_test(message):
     """Retrieve images from Cloudinary and save to photo array"""
     for idx, url in enumerate(PHOTO_ARRAY):
-        img = cloudinary.CloudinaryImage(url).image()
+        img = cloudinary.CloudinaryImage(url, width=150).image()
         print(img)
         print(url)
         BOT.send_message(
