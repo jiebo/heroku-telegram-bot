@@ -68,12 +68,11 @@ def send_welcome(message):
 def start_test(message):
     """Retrieve images from Cloudinary and save to photo array"""
     for idx, url in enumerate(PHOTO_ARRAY):
-        img = cloudinary.CloudinaryImage(url).image()
-        downloadImageFile(url)
+        img = cloudinary.CloudinaryImage(url).url
+        downloadImageFile(img)
         photo = open('temp.jpg', 'rb')
-        print(img)
         print(url)
-        BOT.send_photo(message.chat.id, photo, '[Option ' + str(idx + 1) + ']')
+        BOT.send_photo(message.chat.id, photo, '/Option ' + str(idx + 1))
         # BOT.send_message(
         #     message.chat.id, "[Option " + str(idx + 1) + "](" + url + ")", parse_mode="Markdown")
 
