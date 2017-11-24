@@ -23,7 +23,7 @@ def upload(name):
     """Uploads user-uploaded image onto Cloudinary"""
     cloudinary.uploader.upload(
         "https://api.telegram.org/file/bot" + TOKEN + "/" + name,
-        public_id="test_id" + str(TEST_ID) + name)
+        public_id="test_id" + str(TEST_ID) + "/" + name)
 
 
 PHOTO_ARRAY = [
@@ -34,7 +34,7 @@ PHOTO_ARRAY = [
 @BOT.message_handler(content_types=['photo'])
 def user_uploads_photo(photo):
     """When user uploads an image"""
-    name = BOT.get_file(photo.photo[-1].file_id).file_path
+    name = BOT.get_file(photo.photo[-1].file_id).file_id
     upload(name)
     PHOTO_ARRAY.append(name)
 
