@@ -69,6 +69,7 @@ def start_test(message):
     """Retrieve images from Cloudinary and save to photo array"""
     for idx, url in enumerate(PHOTO_ARRAY):
         img = cloudinary.CloudinaryImage(url).image()
+        downloadImageFile(url)
         photo = open('temp.jpg', 'rb')
         print(img)
         print(url)
@@ -81,5 +82,6 @@ def downloadImageFile(url):
     f = open('temp.jpg', 'wb')
     f.write(urllib.request.urlopen(url).read())
     f.close()
+
 
 BOT.polling()
