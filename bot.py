@@ -59,7 +59,7 @@ def start_test(message):
         img = cloudinary.CloudinaryImage(url).image()
         print(img)
         BOT.send_message(
-            message.chat.id, "[Option " + str(idx) + "](" + url + ")", parse_mode="Markdown")
+            message.chat.id, "[Option " + str(idx + 1) + "](" + url + ")", parse_mode="Markdown")
 
 
 # @BOT.message_handler(func=lambda message: True)
