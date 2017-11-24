@@ -58,6 +58,7 @@ def start_test(message):
     for idx, url in enumerate(PHOTO_ARRAY):
         img = cloudinary.CloudinaryImage(url).image()
         print(img)
+        print(url)
         BOT.send_message(
             message.chat.id, "[Option " + str(idx + 1) + "](" + url + ")", parse_mode="Markdown")
 
