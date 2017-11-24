@@ -27,8 +27,7 @@ def upload(photo, name):
 
 
 PHOTO_ARRAY = [
-    'https://avatars3.githubusercontent.com/u/10268386?u=c22979fe17a17df6aa32d3cf7326e8370160dd47',
-    'https://avatars1.githubusercontent.com/u/4401928?s=400&v=4'
+    'https://avatars3.githubusercontent.com/u/10268386?u=c22979fe17a17df6aa32d3cf7326e8370160dd47'
 ]
 
 
@@ -56,19 +55,19 @@ def send_welcome(message):
 @BOT.message_handler(commands=['start_test'])
 def start_test(message):
     """Retrieve images from Cloudinary and save to photo array"""
-    for url in PHOTO_ARRAY:
+    for url, idx in enumerate(PHOTO_ARRAY):
         img = cloudinary.CloudinaryImage(url).image()
         print(img)
         BOT.send_message(
-            message.chat.id, "[Options](" + url + ")", parse_mode="Markdown")
+            message.chat.id, "[Option " + str(idx) + "](" + url + ")", parse_mode="Markdown")
 
 
-@BOT.message_handler(func=lambda message: True)
-def echo_all(message):
-    """Method returns images in PHOTO_ARRAY as Options"""
-    for idx, url in enumerate(PHOTO_ARRAY):
-        BOT.send_message(
-            message.chat.id, "[Options " + str(idx) + "](" + url + ")", parse_mode="Markdown")
+# @BOT.message_handler(func=lambda message: True)
+# def echo_all(message):
+#     """Method returns images in PHOTO_ARRAY as Options"""
+#     for idx, url in enumerate(PHOTO_ARRAY):
+#         BOT.send_message(
+#             message.chat.id, "[Option " + str(idx + 1) + "](" + url + ")", parse_mode="Markdown")
 
 
 BOT.polling()
