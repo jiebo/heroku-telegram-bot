@@ -20,11 +20,10 @@ cloudinary.config(
 )
 
 
-def upload(name):
+def upload(url):
     """Uploads user-uploaded image onto Cloudinary"""
     cloudinary.uploader.upload(
-        "https://api.telegram.org/file/bot" + TOKEN + "/" + name,
-        public_id="test_id" + str(TEST_ID) + "/" + name,
+        url,
         use_filename=True,
         unique_filename=True)
 
@@ -38,8 +37,9 @@ PHOTO_ARRAY = [
 def user_uploads_photo(photo):
     """When user uploads an image"""
     name = BOT.get_file(photo.photo[-1].file_id).file_path
-    upload(name)
-    PHOTO_ARRAY.append(name)
+    url = "https://api.telegram.org/file/bot" + TOKEN + "/" + name
+    upload(url)
+    PHOTO_ARRAY.append(url)
 
 
 @BOT.message_handler(content_types=['document'])
@@ -68,8 +68,7 @@ def send_welcome(message):
 def start_test(message):
     """Retrieve images from Cloudinary and save to photo array"""
     for idx, url in enumerate(PHOTO_ARRAY):
-        img = cloudinary.CloudinaryImage(url).url
-        downloadImageFile(img)
+        downloadImageFile(url)
         photo = open('temp.jpg', 'rb')
         print(url)
         BOT.send_photo(message.chat.id, photo, '/Option ' + str(idx + 1))
