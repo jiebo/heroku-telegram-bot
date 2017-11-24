@@ -73,9 +73,9 @@ def start_test(message):
         photo = open('temp.jpg', 'rb')
         print(img)
         print(url)
-        BOT.send_photo(message.chat.id, photo)
-        BOT.send_message(
-            message.chat.id, "[Option " + str(idx + 1) + "](" + url + ")", parse_mode="Markdown")
+        BOT.send_photo(message.chat.id, photo, "[Option " + str(idx + 1) + "]")
+        # BOT.send_message(
+        #     message.chat.id, "[Option " + str(idx + 1) + "](" + url + ")", parse_mode="Markdown")
 
 
 def downloadImageFile(url):
