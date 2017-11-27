@@ -43,7 +43,7 @@ def user_uploads_photo(photo):
     url = "https://api.telegram.org/file/bot" + TOKEN + "/" + name
     upload(url)
     PHOTO_ARRAY.append(url)
-    USER_IMAGE_DICTIONARY[photo.from_user.username] = url
+    USER_IMAGE_DICTIONARY[photo.from_user.username].append(url)
     print(USER_IMAGE_DICTIONARY)
 
 
@@ -63,10 +63,9 @@ def send_welcome(message):
 @BOT.message_handler(commands=['create_test'])
 def send_welcome(message):
     """Return the Test ID and create a directory in Cloudinary"""
-    test_id = TEST_ID + 1
-    BOT.reply_to(message, "Your Test ID is " + str(test_id) +
-                 "\nProceed to upload your images, " +
-                 "and call /start_test <ID> in your target chat group after you are done")
+    USER_IMAGE_DICTIONARY[message.chat.username] = 0
+    BOT.reply_to(message, "Proceed to upload your images, " +
+                 "and call /start_test in your target chat group after you are done")
 
 
 @BOT.message_handler(commands=['start_test'])
