@@ -39,12 +39,15 @@ PHOTO_ARRAY = [
 @BOT.message_handler(content_types=['photo'])
 def user_uploads_photo(photo):
     """When user uploads an image"""
-    name = BOT.get_file(photo.photo[-1].file_id).file_path
-    url = "https://api.telegram.org/file/bot" + TOKEN + "/" + name
-    upload(url)
-    PHOTO_ARRAY.append(url)
-    USER_IMAGE_DICTIONARY[photo.from_user.username].append(url)
-    print(USER_IMAGE_DICTIONARY)
+    filename = BOT.get_file(photo.photo[-1].file_id).file_path
+    url = "https://api.telegram.org/file/bot" + TOKEN + "/" + filename
+    username = photo.from_user.username
+
+    if username not in USER_IMAGE_DICTIONARY:
+        BOT.reply_to(photo, "Use /create_test so that we know these images belong to you")
+    else:
+        USER_IMAGE_DICTIONARY[photo.from_user.username].append(url)
+        print(USER_IMAGE_DICTIONARY)
 
 
 @BOT.message_handler(content_types=['document'])
