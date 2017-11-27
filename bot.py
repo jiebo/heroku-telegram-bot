@@ -85,7 +85,7 @@ def start_test(message):
     username = message.chat.username
 
     for idx, url in enumerate(USER_IMAGE_DICTIONARY[username]):
-        if idx == 0
+        if idx == 0:
             continue
         downloadimagefile(url)
         photo = open(CONST_TEMP_IMAGE_FILE_NAME, 'rb')
