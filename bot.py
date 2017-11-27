@@ -10,6 +10,8 @@ import cloudinary.uploader
 import cloudinary.utils
 import telebot
 
+CONST_TEMP_IMAGE_FILE_NAME = "temp.jpg"
+
 TOKEN = os.environ['TELEGRAM_TOKEN']
 BOT = telebot.TeleBot(TOKEN)
 TEST_ID = int(0)
@@ -40,6 +42,7 @@ def user_uploads_photo(photo):
     url = "https://api.telegram.org/file/bot" + TOKEN + "/" + name
     upload(url)
     PHOTO_ARRAY.append(url)
+    print(photo.from_user)
 
 
 @BOT.message_handler(content_types=['document'])
@@ -71,7 +74,7 @@ def start_test(message):
 
     for idx, url in enumerate(PHOTO_ARRAY):
         downloadImageFile(url)
-        photo = open('temp.jpg', 'rb')
+        photo = open(CONST_TEMP_IMAGE_FILE_NAME, 'rb')
         BOT.send_photo(message.chat.id, photo, '/Option' + str(idx + 1))
         option_btn = telebot.types.KeyboardButton("Option " + str(idx + 1))
         markup.add(option_btn)
@@ -80,7 +83,8 @@ def start_test(message):
 
 
 def downloadImageFile(url):
-    f = open('temp.jpg', 'wb')
+    """Download image from URL and save into temp file"""
+    f = open(CONST_TEMP_IMAGE_FILE_NAME, 'wb')
     f.write(urllib.request.urlopen(url).read())
     f.close()
 
