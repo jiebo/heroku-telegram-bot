@@ -63,7 +63,7 @@ def send_welcome(message):
 @BOT.message_handler(commands=['create_test'])
 def send_welcome(message):
     """Return the Test ID and create a directory in Cloudinary"""
-    USER_IMAGE_DICTIONARY[message.chat.username] = 0
+    USER_IMAGE_DICTIONARY[message.chat.username] = [0]
     BOT.reply_to(message, "Proceed to upload your images, " +
                  "and call /start_test in your target chat group after you are done")
 
