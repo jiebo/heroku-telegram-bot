@@ -20,6 +20,7 @@ cloudinary.config(
     api_key="511481921314569",
     api_secret="ERbXpHjdMlU91qcBEslQCY5ReyE"
 )
+USER_IMAGE_DICTIONARY = {}
 
 
 def upload(url):
@@ -43,6 +44,8 @@ def user_uploads_photo(photo):
     upload(url)
     PHOTO_ARRAY.append(url)
     print(photo.from_user)
+    USER_IMAGE_DICTIONARY[photo.from_user.id].append(url)
+    print(USER_IMAGE_DICTIONARY)
 
 
 @BOT.message_handler(content_types=['document'])
