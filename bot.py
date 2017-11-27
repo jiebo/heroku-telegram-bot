@@ -31,6 +31,13 @@ def upload(url):
         unique_filename=True)
 
 
+def downloadimagefile(url):
+    """Download image from URL and save into temp file"""
+    f = open(CONST_TEMP_IMAGE_FILE_NAME, 'wb')
+    f.write(urllib.request.urlopen(url).read())
+    f.close()
+
+
 PHOTO_ARRAY = [
     'https://avatars3.githubusercontent.com/u/10268386?u=c22979fe17a17df6aa32d3cf7326e8370160dd47'
 ]
@@ -75,22 +82,18 @@ def send_welcome(message):
 def start_test(message):
     """Retrieve images from Cloudinary and save to photo array"""
     markup = telebot.types.ReplyKeyboardMarkup(row_width=1)
+    username = message.chat.username
 
-    for idx, url in enumerate(PHOTO_ARRAY):
-        downloadImageFile(url)
+    for idx, url in enumerate(USER_IMAGE_DICTIONARY[username]):
+        if idx == 0
+            continue
+        downloadimagefile(url)
         photo = open(CONST_TEMP_IMAGE_FILE_NAME, 'rb')
         BOT.send_photo(message.chat.id, photo, '/Option' + str(idx + 1))
         option_btn = telebot.types.KeyboardButton("Option " + str(idx + 1))
         markup.add(option_btn)
 
     BOT.send_message(message.chat.id, "Which is the best?", reply_markup=markup)
-
-
-def downloadImageFile(url):
-    """Download image from URL and save into temp file"""
-    f = open(CONST_TEMP_IMAGE_FILE_NAME, 'wb')
-    f.write(urllib.request.urlopen(url).read())
-    f.close()
 
 
 BOT.polling()
