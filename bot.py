@@ -43,7 +43,7 @@ def user_uploads_photo(photo):
     url = "https://api.telegram.org/file/bot" + TOKEN + "/" + name
     upload(url)
     PHOTO_ARRAY.append(url)
-    USER_IMAGE_DICTIONARY[photo.from_user.username].append(url)
+    USER_IMAGE_DICTIONARY[photo.from_user.username] = url
     print(USER_IMAGE_DICTIONARY)
 
 
