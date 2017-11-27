@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """Telegram bot"""
 import os
-import time
 import urllib
 
 import cloudinary
@@ -38,9 +37,9 @@ def downloadimagefile(url):
     f.close()
 
 
-PHOTO_ARRAY = [
-    'https://avatars3.githubusercontent.com/u/10268386?u=c22979fe17a17df6aa32d3cf7326e8370160dd47'
-]
+@BOT.message_handler(regexp=['^Option'])
+def user_selects_option(message):
+    print(message)
 
 
 @BOT.message_handler(content_types=['photo'])
@@ -72,7 +71,7 @@ def send_welcome(message):
 
 @BOT.message_handler(commands=['create_test'])
 def send_welcome(message):
-    """Return the Test ID and create a directory in Cloudinary"""
+    """Initialize the hashmap where username is key"""
     USER_IMAGE_DICTIONARY[message.chat.username] = [0]
     BOT.reply_to(message, "Proceed to upload your images, " +
                  "and call /start_test in your target chat group after you are done")
@@ -80,8 +79,8 @@ def send_welcome(message):
 
 @BOT.message_handler(commands=['start_test'])
 def start_test(message):
-    """Retrieve images from Cloudinary and save to photo array"""
-    markup = telebot.types.ReplyKeyboardMarkup(row_width=1)
+    """Retrieve images from hashmap and display as images"""
+    markup = telebot.types.ReplyKeyboardMarkup(row_width=1, one_time_keyboard=True)
     username = message.chat.username
 
     for idx, url in enumerate(USER_IMAGE_DICTIONARY[username]):
@@ -89,8 +88,8 @@ def start_test(message):
             continue
         downloadimagefile(url)
         photo = open(CONST_TEMP_IMAGE_FILE_NAME, 'rb')
-        BOT.send_photo(message.chat.id, photo, '/Option' + str(idx + 1))
-        option_btn = telebot.types.KeyboardButton("Option " + str(idx + 1))
+        BOT.send_photo(message.chat.id, photo, '/Option' + str(idx))
+        option_btn = telebot.types.KeyboardButton("Option " + str(idx))
         markup.add(option_btn)
 
     BOT.send_message(message.chat.id, "Which is the best?", reply_markup=markup)
