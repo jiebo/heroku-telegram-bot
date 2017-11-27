@@ -8,7 +8,6 @@ import cloudinary.api
 import cloudinary.uploader
 import cloudinary.utils
 import telebot
-from telegram.ext import RegexHandler
 
 CONST_TEMP_IMAGE_FILE_NAME = "temp.jpg"
 
@@ -36,11 +35,6 @@ def downloadimagefile(url):
     f = open(CONST_TEMP_IMAGE_FILE_NAME, 'wb')
     f.write(urllib.request.urlopen(url).read())
     f.close()
-
-
-@BOT.message_handler(regexp=[RegexHandler('^Option')])
-def user_selects_option(message):
-    print(message)
 
 
 @BOT.message_handler(content_types=['photo'])
