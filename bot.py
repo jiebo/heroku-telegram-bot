@@ -46,10 +46,8 @@ def user_uploads_photo(photo):
     username = photo.from_user.username
 
     if username not in USER_IMAGE_DICTIONARY:
-        BOT.reply_to(photo, "Use /create_test so that we know these images belong to you")
-    else:
-        USER_IMAGE_DICTIONARY[photo.from_user.username].append(url)
-        print(USER_IMAGE_DICTIONARY)
+        USER_IMAGE_DICTIONARY[photo.from_user.username] = [0]
+    USER_IMAGE_DICTIONARY[photo.from_user.username].append(url)
 
 
 @BOT.message_handler(content_types=['document'])
