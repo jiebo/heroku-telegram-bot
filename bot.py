@@ -70,6 +70,9 @@ def create_test(message):
 def end_test(message):
     """Remove key value pair from dictionary so that other users can use bot in chat and display results"""
     chat_id = message.chat.id
+    if chat_id not in CHAT_TO_USER_DICTIONARY:
+        return
+
     username = message.chat.username
     username_of_test_owner = CHAT_TO_USER_DICTIONARY[chat_id]
     result_reply = 'Result is a draw.'
