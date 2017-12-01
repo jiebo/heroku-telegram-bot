@@ -20,6 +20,7 @@ cloudinary.config(
     api_secret="ERbXpHjdMlU91qcBEslQCY5ReyE"
 )
 USER_IMAGE_DICTIONARY = {}
+CHAT_TO_USER_DICTIONARY = {}
 
 
 def upload(url):
@@ -75,6 +76,8 @@ def create_test(message):
 @BOT.message_handler(commands=['start_test'])
 def start_test(message):
     """Retrieve images from hashmap and display as images"""
+    initialiseChatToUser(message)
+
     markup = telebot.types.ReplyKeyboardMarkup(row_width=1, one_time_keyboard=True)
     username = message.chat.username
 
@@ -84,14 +87,28 @@ def start_test(message):
         downloadimagefile(url)
         photo = open(CONST_TEMP_IMAGE_FILE_NAME, 'rb')
         BOT.send_photo(message.chat.id, photo, '/Option' + str(idx))
-        option_btn = telebot.types.KeyboardButton("Option " + str(idx))
+        option_btn = telebot.types.KeyboardButton("/Option " + str(idx))
         markup.add(option_btn)
 
     BOT.send_message(message.chat.id, "Which is the best?", reply_markup=markup)
 
 
-@BOT.message_handler(regexp=r'(option|Option).*')
+def initialiseChatToUser(message):
+    chat_id = message.chat.id
+    if chat_id not in CHAT_TO_USER_DICTIONARY:
+        CHAT_TO_USER_DICTIONARY[chat_id] = []
+    CHAT_TO_USER_DICTIONARY[chat_id] = message.chat.username
+
+
+@BOT.message_handler(commands=['Option 1', 'Option 2'])
 def retrieve_response(message):
-    print(message)
+    chat_id = message.chat.id
+    username_of_test_owner = CHAT_TO_USER_DICTIONARY[chat_id]
+    test = USER_IMAGE_DICTIONARY[username_of_test_owner]
+    if message.find('1'):
+        test[0] += 1
+    else:
+        test[0] -= 1
+
 
 BOT.polling()
