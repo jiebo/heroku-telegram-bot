@@ -67,7 +67,7 @@ def create_test(message):
 
 @BOT.message_handler(commands=['end_test'])
 def end_test(message):
-    """Remove key value pair from dictionary so that other users can use bot in chat"""
+    """Remove key value pair from dictionary so that other users can use bot in chat and display results"""
     username = message.chat.username
     chat_id = message.chat.id
 
