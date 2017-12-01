@@ -78,7 +78,7 @@ def end_test(message):
     result_reply = 'Result is a draw.'
 
     if username_of_test_owner == username:
-        del username_of_test_owner
+        del CHAT_TO_USER_DICTIONARY[chat_id]
         result = USER_IMAGE_DICTIONARY[username][0]
         if result > 0:
             result_reply = "Option1 has more votes."
