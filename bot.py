@@ -119,9 +119,9 @@ def retrieve_response(message):
         test[0] -= 1
 
     if test[0] > 0:
-        print ("First image won: " + test[0])
+        print ("First image won: " + str(test[0]))
     else:
-        print ("Second image won: " + test[0])
+        print ("Second image won: " + str(test[0]))
 
 
 BOT.polling()
