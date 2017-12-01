@@ -111,7 +111,7 @@ def initialiseChatToUser(message):
 
 @BOT.message_handler(commands=['Option 1', 'Option 2'])
 def retrieve_response(message):
-    print message
+    print (message)
     chat_id = message.chat.id
     username_of_test_owner = CHAT_TO_USER_DICTIONARY[chat_id]
     test = USER_IMAGE_DICTIONARY[username_of_test_owner]
