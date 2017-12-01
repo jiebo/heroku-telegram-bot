@@ -48,7 +48,7 @@ def user_uploads_photo(photo):
     if username not in USER_IMAGE_DICTIONARY:
         USER_IMAGE_DICTIONARY[photo.from_user.username] = [0]
     USER_IMAGE_DICTIONARY[photo.from_user.username].append(url)
-    BOT.reply_to(photo.chat, 'Image uploaded.')
+    BOT.reply_to(photo, 'Image uploaded.')
 
 
 @BOT.message_handler(content_types=['document'])
@@ -88,14 +88,14 @@ def end_test(message):
 @BOT.message_handler(commands=['start_test'])
 def start_test(message):
     """Retrieve images from hashmap and display as images"""
-    username = message.chat.username
     chat_id = message.chat.id
-    if username not in USER_IMAGE_DICTIONARY:
-        BOT.send_message(chat_id, "You do not have images linked to you. Please upload your images again.")
-        return
-
+    username = message.chat.username
     if chat_id in CHAT_TO_USER_DICTIONARY:
         BOT.send_message(chat_id, "Test in progress. Please end previous test.")
+        return
+
+    if username not in USER_IMAGE_DICTIONARY:
+        BOT.send_message(chat_id, "You do not have images linked to you. Please upload your images again.")
         return
 
     initialiseChatToUser(message)
