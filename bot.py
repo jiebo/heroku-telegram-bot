@@ -88,8 +88,13 @@ def end_test(message):
 def start_test(message):
     """Retrieve images from hashmap and display as images"""
     username = message.chat.username
+    chat_id = message.chat.id
     if username not in USER_IMAGE_DICTIONARY:
-        BOT.send_message(message.chat.id, "You do not have images linked to you. Please upload your images again")
+        BOT.send_message(chat_id, "You do not have images linked to you. Please upload your images again.")
+        return
+
+    if chat_id in CHAT_TO_USER_DICTIONARY:
+        BOT.send_message(chat_id, "Test in progress. Please end previous test.")
         return
 
     initialiseChatToUser(message)
@@ -100,17 +105,16 @@ def start_test(message):
             continue
         downloadimagefile(url)
         photo = open(CONST_TEMP_IMAGE_FILE_NAME, 'rb')
-        BOT.send_photo(message.chat.id, photo, '/Option' + str(idx))
+        BOT.send_photo(chat_id, photo, '/Option' + str(idx))
         option_btn = telebot.types.KeyboardButton("/Option" + str(idx))
         markup.add(option_btn)
 
-    BOT.send_message(message.chat.id, "Which is the best?", reply_markup=markup)
+    BOT.send_message(chat_id, "Which is the best?", reply_markup=markup)
 
 
 def initialiseChatToUser(message):
     chat_id = message.chat.id
-    if chat_id not in CHAT_TO_USER_DICTIONARY:
-        CHAT_TO_USER_DICTIONARY[chat_id] = []
+    CHAT_TO_USER_DICTIONARY[chat_id] = []
     CHAT_TO_USER_DICTIONARY[chat_id] = message.chat.username
 
 
