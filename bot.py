@@ -48,7 +48,7 @@ def user_uploads_photo(photo):
     if username not in USER_IMAGE_DICTIONARY:
         USER_IMAGE_DICTIONARY[photo.from_user.username] = [0]
     USER_IMAGE_DICTIONARY[photo.from_user.username].append(url)
-    BOT.reply_to(message, 'Image uploaded.')
+    BOT.reply_to(photo.chat, 'Image uploaded.')
 
 
 @BOT.message_handler(content_types=['document'])
