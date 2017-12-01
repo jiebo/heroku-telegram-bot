@@ -46,10 +46,8 @@ def user_uploads_photo(photo):
     username = photo.from_user.username
 
     if username not in USER_IMAGE_DICTIONARY:
-        BOT.reply_to(photo, "Use /create_test so that we know these images belong to you")
-    else:
-        USER_IMAGE_DICTIONARY[photo.from_user.username].append(url)
-        print(USER_IMAGE_DICTIONARY)
+        USER_IMAGE_DICTIONARY[photo.from_user.username] = [0]
+    USER_IMAGE_DICTIONARY[photo.from_user.username].append(url)
 
 
 @BOT.message_handler(content_types=['document'])
@@ -78,10 +76,13 @@ def end_test(message):
 @BOT.message_handler(commands=['start_test'])
 def start_test(message):
     """Retrieve images from hashmap and display as images"""
-    initialiseChatToUser(message)
-
-    markup = telebot.types.ReplyKeyboardMarkup(row_width=1, one_time_keyboard=True)
     username = message.chat.username
+    if username not in USER_IMAGE_DICTIONARY:
+        BOT.send_message(message.chat.id, "You do not have images linked to you. Please upload your images again")
+        return
+
+    initialiseChatToUser(message)
+    markup = telebot.types.ReplyKeyboardMarkup(row_width=1, one_time_keyboard=True)
 
     for idx, url in enumerate(USER_IMAGE_DICTIONARY[username]):
         if idx == 0:
@@ -89,7 +90,7 @@ def start_test(message):
         downloadimagefile(url)
         photo = open(CONST_TEMP_IMAGE_FILE_NAME, 'rb')
         BOT.send_photo(message.chat.id, photo, '/Option' + str(idx))
-        option_btn = telebot.types.KeyboardButton("/Option " + str(idx))
+        option_btn = telebot.types.KeyboardButton("/Option" + str(idx))
         markup.add(option_btn)
 
     BOT.send_message(message.chat.id, "Which is the best?", reply_markup=markup)
@@ -102,8 +103,9 @@ def initialiseChatToUser(message):
     CHAT_TO_USER_DICTIONARY[chat_id] = message.chat.username
 
 
-@BOT.message_handler(commands=['Option 1', 'Option 2'])
+@BOT.message_handler(commands=['Option1', 'Option2'])
 def retrieve_response(message):
+    print (message)
     chat_id = message.chat.id
     username_of_test_owner = CHAT_TO_USER_DICTIONARY[chat_id]
     test = USER_IMAGE_DICTIONARY[username_of_test_owner]
