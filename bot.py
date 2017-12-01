@@ -122,21 +122,15 @@ def initialiseChatToUser(message):
     CHAT_TO_USER_DICTIONARY[chat_id] = message.chat.username
 
 
-@BOT.message_handler(commands=['Option1', 'Option2'])
+@BOT.message_handler(commands=['Option1', 'Option2', 'option1', 'option2'])
 def retrieve_response(message):
-    print (message)
     chat_id = message.chat.id
     username_of_test_owner = CHAT_TO_USER_DICTIONARY[chat_id]
     test = USER_IMAGE_DICTIONARY[username_of_test_owner]
-    if message.text == '/Option1':
+    if message.text.lower() == '/option1':
         test[0] += 1
     else:
         test[0] -= 1
-
-    if test[0] > 0:
-        print ("First image won: " + str(test[0]))
-    else:
-        print ("Second image won: " + str(test[0]))
 
 
 BOT.polling()
