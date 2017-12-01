@@ -68,9 +68,13 @@ def create_test(message):
 @BOT.message_handler(commands=['end_test'])
 def end_test(message):
     """Remove key value pair from dictionary so that other users can use bot in chat"""
+    username = message.chat.username
     chat_id = message.chat.id
-    del CHAT_TO_USER_DICTIONARY[chat_id]
-    BOT.reply_to(message, "Test has ended.")
+
+    if CHAT_TO_USER_DICTIONARY[chat_id] == username
+        del CHAT_TO_USER_DICTIONARY[chat_id]
+        result = USER_IMAGE_DICTIONARY[username][0]
+    BOT.reply_to(message, "Test has ended. Result is " + result)
 
 
 @BOT.message_handler(commands=['start_test'])
