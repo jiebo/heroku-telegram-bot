@@ -59,12 +59,6 @@ def user_uploads_document(message):
         message, "Please use the attach image button instead of attaching a document")
 
 
-@BOT.message_handler(commands=['start', 'help'])
-def send_welcome(message):
-    """Default command"""
-    BOT.reply_to(message, "Use /create_test to start")
-
-
 @BOT.message_handler(commands=['create_test'])
 def create_test(message):
     """Initialize the hashmap where username is key"""
@@ -73,12 +67,12 @@ def create_test(message):
                  "and call /start_test in your target chat group after you are done")
 
 
-@BOT.message_handler(commands=['reset_test'])
-def reset_test(message):
-    """Reset test"""
-    USER_IMAGE_DICTIONARY[message.chat.username] = [0]
-    BOT.reply_to(message, "Test has been reset. Proceed to upload your images, " +
-                 "and call /start_test in your target chat group after you are done")
+@BOT.message_handler(commands=['end_test'])
+def end_test(message):
+    """Remove key value pair from dictionary so that other users can use bot in chat"""
+    chat_id = message.chat.id
+    del CHAT_TO_USER_DICTIONARY[chat_id]
+    BOT.reply_to(message, "Test has ended.")
 
 
 @BOT.message_handler(commands=['start_test'])
