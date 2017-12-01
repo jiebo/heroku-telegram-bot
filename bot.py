@@ -72,6 +72,14 @@ def send_welcome(message):
                  "and call /start_test in your target chat group after you are done")
 
 
+@BOT.message_handler(commands=['reset_test'])
+def reset_test(message):
+    """Reset test"""
+    USER_IMAGE_DICTIONARY[message.chat.username] = [0]
+    BOT.reply_to(message, "Test has been reset. Proceed to upload your images, " +
+                 "and call /start_test in your target chat group after you are done")
+
+
 @BOT.message_handler(commands=['start_test'])
 def start_test(message):
     """Retrieve images from hashmap and display as images"""
