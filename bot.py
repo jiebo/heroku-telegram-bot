@@ -113,10 +113,15 @@ def retrieve_response(message):
     chat_id = message.chat.id
     username_of_test_owner = CHAT_TO_USER_DICTIONARY[chat_id]
     test = USER_IMAGE_DICTIONARY[username_of_test_owner]
-    if message.find('1'):
+    if message.text.find('1'):
         test[0] += 1
     else:
         test[0] -= 1
+
+    if USER_IMAGE_DICTIONARY[username_of_test_owner][0] > 0:
+        print ("First image won")
+    else:
+        print ("Second image won")
 
 
 BOT.polling()
