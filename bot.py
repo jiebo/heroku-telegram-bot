@@ -113,7 +113,7 @@ def retrieve_response(message):
     chat_id = message.chat.id
     username_of_test_owner = CHAT_TO_USER_DICTIONARY[chat_id]
     test = USER_IMAGE_DICTIONARY[username_of_test_owner]
-    if message.text.find('1'):
+    if message.text[7] == 1:
         test[0] += 1
     else:
         test[0] -= 1
