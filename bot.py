@@ -96,7 +96,7 @@ def start_test(message):
         downloadimagefile(url)
         photo = open(CONST_TEMP_IMAGE_FILE_NAME, 'rb')
         BOT.send_photo(message.chat.id, photo, '/Option' + str(idx))
-        option_btn = telebot.types.KeyboardButton("/Option " + str(idx))
+        option_btn = telebot.types.KeyboardButton("/Option" + str(idx))
         markup.add(option_btn)
 
     BOT.send_message(message.chat.id, "Which is the best?", reply_markup=markup)
@@ -109,7 +109,7 @@ def initialiseChatToUser(message):
     CHAT_TO_USER_DICTIONARY[chat_id] = message.chat.username
 
 
-@BOT.message_handler(commands=['Option'])
+@BOT.message_handler(commands=['Option1', 'Option2'])
 def retrieve_response(message):
     print (message)
     chat_id = message.chat.id
