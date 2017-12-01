@@ -85,7 +85,7 @@ def end_test(message):
         elif result < 0:
             result_reply = "Option2 has more votes."
 
-    BOT.send_message(message, "Test has ended. " + result_reply)
+    BOT.send_message(chat_id, "Test has ended. " + result_reply)
 
 
 @BOT.message_handler(commands=['start_test'])
