@@ -109,7 +109,7 @@ def initialiseChatToUser(message):
     CHAT_TO_USER_DICTIONARY[chat_id] = message.chat.username
 
 
-@BOT.message_handler(commands=['Option 1', 'Option 2'])
+@BOT.message_handler(commands=['Option'])
 def retrieve_response(message):
     print (message)
     chat_id = message.chat.id
