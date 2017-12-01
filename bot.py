@@ -84,10 +84,13 @@ def reset_test(message):
 @BOT.message_handler(commands=['start_test'])
 def start_test(message):
     """Retrieve images from hashmap and display as images"""
-    initialiseChatToUser(message)
-
-    markup = telebot.types.ReplyKeyboardMarkup(row_width=1, one_time_keyboard=True)
     username = message.chat.username
+    if username not in USER_IMAGE_DICTIONARY:
+        BOT.send_message(message.chat.id, "You do not have images linked to you. Please upload your images again")
+        return
+
+    initialiseChatToUser(message)
+    markup = telebot.types.ReplyKeyboardMarkup(row_width=1, one_time_keyboard=True)
 
     for idx, url in enumerate(USER_IMAGE_DICTIONARY[username]):
         if idx == 0:
