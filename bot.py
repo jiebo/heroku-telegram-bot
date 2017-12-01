@@ -65,7 +65,7 @@ def send_welcome(message):
 
 
 @BOT.message_handler(commands=['create_test'])
-def send_welcome(message):
+def create_test(message):
     """Initialize the hashmap where username is key"""
     USER_IMAGE_DICTIONARY[message.chat.username] = [0]
     BOT.reply_to(message, "Proceed to upload your images, " +
@@ -89,5 +89,9 @@ def start_test(message):
 
     BOT.send_message(message.chat.id, "Which is the best?", reply_markup=markup)
 
+
+@BOT.message_handler(regexp=r'(option|Option).*')
+def retrieve_response(message):
+    print(message)
 
 BOT.polling()
