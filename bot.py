@@ -68,13 +68,20 @@ def create_test(message):
 @BOT.message_handler(commands=['end_test'])
 def end_test(message):
     """Remove key value pair from dictionary so that other users can use bot in chat and display results"""
-    username = message.chat.username
     chat_id = message.chat.id
+    username = message.chat.username
+    username_of_test_owner = CHAT_TO_USER_DICTIONARY[chat_id]
+    result_reply = 'Result is a draw.'
 
-    if CHAT_TO_USER_DICTIONARY[chat_id] == username
-        del CHAT_TO_USER_DICTIONARY[chat_id]
+    if username_of_test_owner == username:
+        del username_of_test_owner
         result = USER_IMAGE_DICTIONARY[username][0]
-    BOT.reply_to(message, "Test has ended. Result is " + result)
+        if result > 0:
+            result_reply = "Option1 has more votes."
+        elif result < 0:
+            result_reply = "Option2 has more votes."
+
+    BOT.reply_to(message, "Test has ended. " + result_reply)
 
 
 @BOT.message_handler(commands=['start_test'])
