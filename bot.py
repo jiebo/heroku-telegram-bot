@@ -48,6 +48,7 @@ def user_uploads_photo(photo):
     if username not in USER_IMAGE_DICTIONARY:
         USER_IMAGE_DICTIONARY[photo.from_user.username] = [0]
     USER_IMAGE_DICTIONARY[photo.from_user.username].append(url)
+    BOT.reply_to(message, 'Image uploaded.')
 
 
 @BOT.message_handler(content_types=['document'])
@@ -81,7 +82,7 @@ def end_test(message):
         elif result < 0:
             result_reply = "Option2 has more votes."
 
-    BOT.reply_to(message, "Test has ended. " + result_reply)
+    BOT.send_message(message, "Test has ended. " + result_reply)
 
 
 @BOT.message_handler(commands=['start_test'])
