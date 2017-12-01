@@ -114,5 +114,10 @@ def retrieve_response(message):
     else:
         test[0] -= 1
 
+    if USER_IMAGE_DICTIONARY[username_of_test_owner][0] > 0:
+        print ("First image won")
+    else:
+        print ("Second image won")
+
 
 BOT.polling()
