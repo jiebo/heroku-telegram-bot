@@ -1,15 +1,13 @@
 # -*- coding: utf-8 -*-
 """Telegram bot"""
 import os
-import urllib
 
 import cloudinary
 import cloudinary.api
 import cloudinary.uploader
 import cloudinary.utils
 import telebot
-
-CONST_TEMP_IMAGE_FILE_NAME = "temp.jpg"
+import helper
 
 TOKEN = os.environ['TELEGRAM_TOKEN']
 BOT = telebot.TeleBot(TOKEN)
@@ -29,13 +27,6 @@ def upload(url):
         url,
         use_filename=True,
         unique_filename=True)
-
-
-def downloadimagefile(url):
-    """Download image from URL and save into temp file"""
-    f = open(CONST_TEMP_IMAGE_FILE_NAME, 'wb')
-    f.write(urllib.request.urlopen(url).read())
-    f.close()
 
 
 @BOT.message_handler(content_types=['photo'])
@@ -76,16 +67,23 @@ def end_test(message):
     username = message.chat.username
     username_of_test_owner = CHAT_TO_USER_DICTIONARY[chat_id]
     result_reply = 'Result is a draw.'
+    result_image = ""
 
     if username_of_test_owner == username:
         del CHAT_TO_USER_DICTIONARY[chat_id]
         result = USER_IMAGE_DICTIONARY[username][0]
         if result > 0:
             result_reply = "Option1 has more votes."
+            result_image = USER_IMAGE_DICTIONARY[username][1]
         elif result < 0:
             result_reply = "Option2 has more votes."
+            result_image = USER_IMAGE_DICTIONARY[username][2]
 
-    BOT.send_message(chat_id, "Test has ended. " + result_reply)
+    if result_image:
+        photo = helper.download_and_return_image(result_image)
+        BOT.send_photo(chat_id, photo, result_reply)
+    else:
+        BOT.send_message(chat_id, "Test has ended. " + result_reply)
 
 
 @BOT.message_handler(commands=['start_test'])
@@ -107,8 +105,8 @@ def start_test(message):
     for idx, url in enumerate(USER_IMAGE_DICTIONARY[username]):
         if idx == 0:
             continue
-        downloadimagefile(url)
-        photo = open(CONST_TEMP_IMAGE_FILE_NAME, 'rb')
+
+        photo = helper.download_and_return_image(url)
         BOT.send_photo(chat_id, photo, '/Option' + str(idx))
         option_btn = telebot.types.KeyboardButton("/Option" + str(idx))
         markup.add(option_btn)
