@@ -11,7 +11,6 @@ import helper
 
 TOKEN = os.environ['TELEGRAM_TOKEN']
 BOT = telebot.TeleBot(TOKEN)
-TEST_ID = int(0)
 cloudinary.config(
     cloud_name="eu-sep",
     api_key="511481921314569",
@@ -27,6 +26,12 @@ def upload(url):
         url,
         use_filename=True,
         unique_filename=True)
+
+
+def initialise_chat_to_user(message):
+    chat_id = message.chat.id
+    CHAT_TO_USER_DICTIONARY[chat_id] = []
+    CHAT_TO_USER_DICTIONARY[chat_id] = message.chat.username
 
 
 @BOT.message_handler(content_types=['photo'])
@@ -99,7 +104,7 @@ def start_test(message):
         BOT.send_message(chat_id, "You do not have images linked to you. Please upload your images again.")
         return
 
-    initialiseChatToUser(message)
+    initialise_chat_to_user(message)
     markup = telebot.types.ReplyKeyboardMarkup(row_width=1, one_time_keyboard=True)
 
     for idx, url in enumerate(USER_IMAGE_DICTIONARY[username]):
@@ -112,12 +117,6 @@ def start_test(message):
         markup.add(option_btn)
 
     BOT.send_message(chat_id, "Which is the best?", reply_markup=markup)
-
-
-def initialiseChatToUser(message):
-    chat_id = message.chat.id
-    CHAT_TO_USER_DICTIONARY[chat_id] = []
-    CHAT_TO_USER_DICTIONARY[chat_id] = message.chat.username
 
 
 @BOT.message_handler(commands=['Option1', 'Option2', 'option1', 'option2'])
