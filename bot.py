@@ -42,13 +42,13 @@ def downloadimagefile(url):
 def user_uploads_photo(photo):
     """When user uploads an image"""
     filename = BOT.get_file(photo.photo[-1].file_id).file_path
-    url = "https://api.telegram.org/file/bot" + TOKEN + "/" + filename
+    url = "https://api.telegram.org/file/bot{}/{}".format(TOKEN, filename)
     username = photo.from_user.username
 
     if username not in USER_IMAGE_DICTIONARY:
         USER_IMAGE_DICTIONARY[photo.from_user.username] = [0]
     USER_IMAGE_DICTIONARY[photo.from_user.username].append(url)
-    BOT.reply_to(photo, 'Image uploaded.')
+    BOT.reply_to(photo, 'Image uploaded')
 
 
 @BOT.message_handler(content_types=['document'])
