@@ -128,6 +128,9 @@ def start_test(message):
 @BOT.message_handler(commands=['Option1', 'Option2', 'option1', 'option2'])
 def retrieve_response(message):
     chat_id = message.chat.id
+    if chat_id not in CHAT_TO_USER_DICTIONARY:
+        BOT.send_message(chat_id, "There is no test running.")
+        return
     username_of_test_owner = CHAT_TO_USER_DICTIONARY[chat_id]
     test = USER_IMAGE_DICTIONARY[username_of_test_owner]
     if message.text.lower() == '/option1':
