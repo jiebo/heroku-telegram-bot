@@ -70,7 +70,7 @@ def end_test(message):
     if chat_id not in CHAT_TO_USER_DICTIONARY:
         return
 
-    username = message.chat.username
+    username = message.from_user.username
     username_of_test_owner = CHAT_TO_USER_DICTIONARY[chat_id]
     result_reply = 'Result is a draw.'
     result_image = ""
