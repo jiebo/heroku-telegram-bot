@@ -31,7 +31,7 @@ def upload(url):
 def initialise_chat_to_user(message):
     chat_id = message.chat.id
     CHAT_TO_USER_DICTIONARY[chat_id] = []
-    CHAT_TO_USER_DICTIONARY[chat_id] = message.chat.username
+    CHAT_TO_USER_DICTIONARY[chat_id] = message.from_user.username
 
 
 @BOT.message_handler(content_types=['photo'])
@@ -43,24 +43,24 @@ def user_uploads_photo(photo):
     print(photo.from_user)
 
     if username not in USER_IMAGE_DICTIONARY:
-        USER_IMAGE_DICTIONARY[photo.from_user.username] = [0]
-    USER_IMAGE_DICTIONARY[photo.from_user.username].append(url)
-    BOT.reply_to(photo, 'Image uploaded')
+        USER_IMAGE_DICTIONARY[username] = [0]
+    USER_IMAGE_DICTIONARY[username].append(url)
+    BOT.reply_to(photo, 'Image uploaded.')
 
 
 @BOT.message_handler(content_types=['document'])
 def user_uploads_document(message):
     """When user uses the wrong upload button"""
     BOT.reply_to(
-        message, "Please use the attach image button instead of attaching a document")
+        message, "Please use the attach image button instead of attaching a document.")
 
 
 @BOT.message_handler(commands=['create_test'])
 def create_test(message):
     """Initialize the hashmap where username is key"""
-    USER_IMAGE_DICTIONARY[message.chat.username] = [0]
+    USER_IMAGE_DICTIONARY[message.from_user.username] = [0]
     BOT.reply_to(message, "Proceed to upload your images, " +
-                 "and call /start_test in your target chat group after you are done")
+                 "and call /start_test in your target chat group after you are done.")
 
 
 @BOT.message_handler(commands=['end_test'])
@@ -111,7 +111,7 @@ def start_test(message):
         return
 
     initialise_chat_to_user(message)
-    markup = telebot.types.ReplyKeyboardMarkup(row_width=1, one_time_keyboard=True)
+    markup = telebot.types.ReplyKeyboardMarkup(row_width=2, one_time_keyboard=True)
 
     for idx, url in enumerate(USER_IMAGE_DICTIONARY[username]):
         if idx == 0:
