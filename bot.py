@@ -104,15 +104,11 @@ def start_test(message):
         BOT.send_message(chat_id, "You do not have images linked to you. Please upload your images again.")
         return
 
-<<<<<<< HEAD
     if not USER_IMAGE_DICTIONARY[username]:
         BOT.send_message(chat_id, "You do not have images linked to you. Please upload your images again.")
         return
 
-    initialiseChatToUser(message)
-=======
     initialise_chat_to_user(message)
->>>>>>> 5fa3d1dcd95d5cf2b4ea7bcc5016c28436da02a5
     markup = telebot.types.ReplyKeyboardMarkup(row_width=1, one_time_keyboard=True)
 
     for idx, url in enumerate(USER_IMAGE_DICTIONARY[username]):
