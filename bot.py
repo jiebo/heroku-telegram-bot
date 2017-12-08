@@ -101,6 +101,10 @@ def start_test(message):
         BOT.send_message(chat_id, "You do not have images linked to you. Please upload your images again.")
         return
 
+    if not USER_IMAGE_DICTIONARY[username]:
+        BOT.send_message(chat_id, "You do not have images linked to you. Please upload your images again.")
+        return
+
     initialiseChatToUser(message)
     markup = telebot.types.ReplyKeyboardMarkup(row_width=1, one_time_keyboard=True)
 
