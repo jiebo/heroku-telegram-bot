@@ -58,7 +58,8 @@ def user_uploads_document(message):
 @BOT.message_handler(commands=['create_test'])
 def create_test(message):
     """Initialize the hashmap where username is key"""
-    print(message)
+    if message.chat.type == 'group':
+        return
     USER_IMAGE_DICTIONARY[message.from_user.username] = [0]
     BOT.reply_to(message, "Proceed to upload your images, " +
                  "and call /start_test in your target chat group after you are done.")
