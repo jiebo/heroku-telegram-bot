@@ -97,7 +97,7 @@ def start_test(message):
     """Retrieve images from hashmap and display as images"""
     chat_id = message.chat.id
     username = message.chat.username
-    print(message.chat.username)
+    print(message)
     if chat_id in CHAT_TO_USER_DICTIONARY:
         BOT.send_message(chat_id, "Test in progress. Please end previous test.")
         return
