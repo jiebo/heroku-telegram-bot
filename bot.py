@@ -77,7 +77,7 @@ def end_test(message):
     result_image = ""
 
     if username_of_test_owner != username:
-      BOT.reply_to(message, "You cannot end test that does not belong to you.")
+        BOT.reply_to(message, "You cannot end test that does not belong to you.")
         return
     
     del CHAT_TO_USER_DICTIONARY[chat_id]
