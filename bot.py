@@ -75,15 +75,17 @@ def end_test(message):
     result_reply = 'Result is a draw.'
     result_image = ""
 
-    if username_of_test_owner == username:
-        del CHAT_TO_USER_DICTIONARY[chat_id]
-        result = USER_IMAGE_DICTIONARY[username][0]
-        if result > 0:
-            result_reply = "Option1 has more votes."
-            result_image = USER_IMAGE_DICTIONARY[username][1]
-        elif result < 0:
-            result_reply = "Option2 has more votes."
-            result_image = USER_IMAGE_DICTIONARY[username][2]
+    if username_of_test_owner != username:
+        return
+    
+    del CHAT_TO_USER_DICTIONARY[chat_id]
+    result = USER_IMAGE_DICTIONARY[username][0]
+    if result > 0:
+        result_reply = "Option1 has more votes."
+        result_image = USER_IMAGE_DICTIONARY[username][1]
+    elif result < 0:
+        result_reply = "Option2 has more votes."
+        result_image = USER_IMAGE_DICTIONARY[username][2]
 
     if result_image:
         photo = helper.download_and_return_image(result_image)
