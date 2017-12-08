@@ -40,6 +40,7 @@ def user_uploads_photo(photo):
     filename = BOT.get_file(photo.photo[-1].file_id).file_path
     url = "https://api.telegram.org/file/bot{}/{}".format(TOKEN, filename)
     username = photo.from_user.username
+    print(photo)
 
     if username not in USER_IMAGE_DICTIONARY:
         USER_IMAGE_DICTIONARY[photo.from_user.username] = [0]
