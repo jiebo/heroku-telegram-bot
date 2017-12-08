@@ -76,6 +76,7 @@ def end_test(message):
     result_image = ""
 
     if username_of_test_owner != username:
+      BOT.reply_to(message, "You cannot end test that does not belong to you.")
         return
     
     del CHAT_TO_USER_DICTIONARY[chat_id]
@@ -131,7 +132,7 @@ def start_test(message):
 def retrieve_response(message):
     chat_id = message.chat.id
     if chat_id not in CHAT_TO_USER_DICTIONARY:
-        BOT.send_message(chat_id, "There is no test running.")
+        BOT.reply_to(message, "There is no test running.")
         return
     username_of_test_owner = CHAT_TO_USER_DICTIONARY[chat_id]
     test = USER_IMAGE_DICTIONARY[username_of_test_owner]
