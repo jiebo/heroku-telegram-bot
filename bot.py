@@ -40,7 +40,6 @@ def user_uploads_photo(photo):
     filename = BOT.get_file(photo.photo[-1].file_id).file_path
     url = "https://api.telegram.org/file/bot{}/{}".format(TOKEN, filename)
     username = photo.from_user.username
-    print(photo.from_user)
 
     if username not in USER_IMAGE_DICTIONARY:
         USER_IMAGE_DICTIONARY[username] = [0]
@@ -93,8 +92,9 @@ def end_test(message):
     if result_image:
         photo = helper.download_and_return_image(result_image)
         BOT.send_photo(chat_id, photo, result_reply)
-    else:
-        BOT.send_message(chat_id, "Test has ended. " + result_reply)
+    
+    USER_IMAGE_DICTIONARY[username] = [0]
+    BOT.send_message(chat_id, "Test has ended. " + result_reply)
 
 
 @BOT.message_handler(commands=['start_test'])
@@ -102,7 +102,6 @@ def start_test(message):
     """Retrieve images from hashmap and display as images"""
     chat_id = message.chat.id
     username = message.from_user.username
-    print(message.from_user)
     if chat_id in CHAT_TO_USER_DICTIONARY:
         BOT.send_message(chat_id, "Test in progress. Please end previous test.")
         return
