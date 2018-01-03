@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class Sum {
     public static void main(String[] args) {
-        List<ArrayList> inputList = new ArrayList<ArrayList>();
+        List<ArrayList<Integer>> inputList = new ArrayList<ArrayList<Integer>>();
         HashMap<Integer, Integer> inputSize = new HashMap(4);
         Scanner sc = new Scanner(System.in);
 
@@ -31,23 +31,31 @@ public class Sum {
             System.out.println();
         }
 
-        for (int a=0; a<inputSize.get(a); a++) {
-            int aCount = (int) inputList.get(0).get(a);
-            for (int b=0; b<inputSize.get(b); b++) {
-                int bCount = (int) inputList.get(1).get(b);
-                for (int c=0; c<inputSize.get(c); c++) {
-                    int cCount = (int) inputList.get(2).get(c);
-                    for (int d=0; d<inputSize.get(d); d++) {
-                        int dCount = (int) inputList.get(0).get(d);
-                        if (aCount + bCount + cCount + dCount == 0) {
-                            System.out.printf("%d %d %d %d \n", aCount, bCount, cCount, dCount);
-                            return;
-                        }
-                    }
-                }
-            }
+        if (!isSumZero(0, 0, 0, 0, inputList))
+            System.out.println("No valid set");
+
+    }
+
+    private static boolean isSumZero(int a, int b, int c, int d, List<ArrayList<Integer>> inputList) {
+
+        List<Integer> arrayA = inputList.get(0);
+        List<Integer> arrayB = inputList.get(1);
+        List<Integer> arrayC = inputList.get(2);
+        List<Integer> arrayD = inputList.get(3);
+        if (arrayA.size() <= a
+                || arrayB.size() <= b
+                || arrayC.size() <= c
+                || arrayD.size() <= d)
+            return false;
+
+        if (arrayA.get(a) + arrayB.get(b) + arrayC.get(c) + arrayD.get(d) == 0) {
+            System.out.printf("%d %d %d %d \n", arrayA.get(a), arrayB.get(b), arrayC.get(c), arrayD.get(d));
+            return true;
         }
-        System.out.println("No valid set");
+        return isSumZero(a+1, b, c, d, inputList)
+                || isSumZero(a, b+1, c, d, inputList)
+                || isSumZero(a, b, c+1, d, inputList)
+                || isSumZero(a, b, c, d+1, inputList);
 
     }
 }
