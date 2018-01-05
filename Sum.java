@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * Created by jiebo on 04/01/2018.
+ * Created by jiebo on 04/01/2018
  */
 
 public class Sum {
