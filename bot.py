@@ -95,7 +95,7 @@ def end_test(message):
     
     USER_IMAGE_DICTIONARY[username] = [0]
     markup = telebot.types.ReplyKeyboardRemove()
-    BOT.send_message(chat_id, "Test has ended. " + result_reply, markup)
+    BOT.send_message(chat_id, "Test has ended. " + result_reply, reply_markup=markup)
 
 
 @BOT.message_handler(commands=['start_test'])
