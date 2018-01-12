@@ -1,6 +1,7 @@
 # List of required packages (Dependencies)
 redis
 cloudinary
+urllib
 
 # If you need to specify a version
 requests==2.16.5
