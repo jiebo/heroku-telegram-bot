@@ -8,6 +8,7 @@ import cloudinary.uploader
 import cloudinary.utils
 import telebot
 import helper
+from util import vote_option
 
 TOKEN = os.environ['TELEGRAM_TOKEN']
 BOT = telebot.TeleBot(TOKEN)
@@ -94,7 +95,8 @@ def end_test(message):
         BOT.send_photo(chat_id, photo, result_reply)
     
     USER_IMAGE_DICTIONARY[username] = [0]
-    BOT.send_message(chat_id, "Test has ended. " + result_reply)
+    markup = telebot.types.ReplyKeyboardRemove()
+    BOT.send_message(chat_id, "Test has ended. " + result_reply, reply_markup=markup)
 
 
 @BOT.message_handler(commands=['start_test'])
@@ -137,10 +139,7 @@ def retrieve_response(message):
         return
     username_of_test_owner = CHAT_TO_USER_DICTIONARY[chat_id]
     test = USER_IMAGE_DICTIONARY[username_of_test_owner]
-    if message.text.lower() == '/option1':
-        test[0] += 1
-    else:
-        test[0] -= 1
+    vote_option(message.text, test)
 
 
 BOT.polling()
