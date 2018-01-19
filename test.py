@@ -14,7 +14,7 @@ class MyTestCase(unittest.TestCase):
         test_array = [0]
         message = '/option1'
         util.vote_option(message, test_array)
-        self.assertEqual(test_array[0], 1)
+        self.assertEqual(test_array[0], 0)
 
 if __name__ == '__main__':
    log_file = 'log_file.txt'
