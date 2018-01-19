@@ -8,6 +8,7 @@ import cloudinary.uploader
 import cloudinary.utils
 import telebot
 import helper
+from util import vote_option
 
 TOKEN = os.environ['TELEGRAM_TOKEN']
 BOT = telebot.TeleBot(TOKEN)
@@ -138,10 +139,7 @@ def retrieve_response(message):
         return
     username_of_test_owner = CHAT_TO_USER_DICTIONARY[chat_id]
     test = USER_IMAGE_DICTIONARY[username_of_test_owner]
-    if message.text.lower() == '/option1':
-        test[0] += 1
-    else:
-        test[0] -= 1
+    vote_option(message.text, test)
 
 
 BOT.polling()
