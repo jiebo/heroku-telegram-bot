@@ -12,7 +12,7 @@ class MyTestCase(unittest.TestCase):
 
     def test_voting_mechanism_success(self):
         test_array = [0]
-        message = '/option1'
+        message = '/Option1'
         util.vote_option(message, test_array)
         self.assertEqual(test_array[0], 0)
 
