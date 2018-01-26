@@ -145,8 +145,9 @@ def retrieve_response(message):
 
 
 @BOT.message_handler(commands=['start_comparing'])
-def start_comparing(message, ):
-    message.getArguments()
+def start_comparing(message):
+    print(message)
+    print(message.getArguments())
 
 
 BOT.polling()
