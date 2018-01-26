@@ -32,7 +32,7 @@ public class Sum {
         }
 
         if (!isSumZero(0, 0, 0, 0, inputList))
-            System.out.println("No valid set");
+            System.out.println("No valid set"); 
 
     }
 
