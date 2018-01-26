@@ -125,8 +125,10 @@ def start_test(message):
 
         photo = helper.download_and_return_image(url)
         BOT.send_photo(chat_id, photo, '/Option' + str(idx))
-        option_btn = telebot.types.KeyboardButton("/Option" + str(idx))
-        markup.add(option_btn)
+
+    option_btn1 = telebot.types.KeyboardButton("/Option1")
+    option_btn2 = telebot.types.KeyboardButton("/Option2")
+    markup.add(option_btn1, option_btn2)
 
     BOT.send_message(chat_id, "Which is the best?", reply_markup=markup)
 
@@ -140,6 +142,11 @@ def retrieve_response(message):
     username_of_test_owner = CHAT_TO_USER_DICTIONARY[chat_id]
     test = USER_IMAGE_DICTIONARY[username_of_test_owner]
     vote_option(message.text, test)
+
+
+@BOT.message_handler(commands=['start_comparing'])
+def start_comparing(message, ):
+    message.getArguments()
 
 
 BOT.polling()

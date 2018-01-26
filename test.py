@@ -16,9 +16,10 @@ class MyTestCase(unittest.TestCase):
         util.vote_option(message, test_array)
         self.assertEqual(test_array[0], 1)
 
+
 if __name__ == '__main__':
-   log_file = 'log_file.txt'
-   f = open(log_file, "w")
-   runner = unittest.TextTestRunner(f)
-   unittest.main(testRunner=runner)
-   f.close()
+    log_file = 'log_file.txt'
+    f = open(log_file, "w")
+    runner = unittest.TextTestRunner(f)
+    unittest.main(testRunner=runner)
+    f.close()
